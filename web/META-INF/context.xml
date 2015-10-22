@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/TrabalhoISS">
+  <Resource auth="Container" driverClassName="org.apache.derby.jdbc.ClientDriver" maxActive="20" maxIdle="10" maxWait="-1" name="DB" password="root" type="javax.sql.DataSource" url="jdbc:derby://localhost:1527/trabalhoISS" username="root"/>
+  <Resource auth="Container" driverClassName="org.apache.derby.jdbc.EmbeddedDriver" maxActive="20" maxIdle="10" maxWait="-1" name="EMBEDED" password="root" type="javax.sql.DataSource" url="jdbc:derby:trabalho;create=true" username="root"/>
+</Context>
