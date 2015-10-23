@@ -4,10 +4,18 @@
     Author     : Gabriel
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="persistencia.EMF"%>
+<%@page import="java.util.List"%>
+<%@page import="javax.persistence.EntityManager"%>
+<%@page import="modelo.Produto"%>
+<%@page import="persistencia.EMF"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 
 <% 
-    EMF.createEntityManager() ;
+    EntityManager em = EMF.createEntityManager() ;
+    em.getTransaction().begin();
+    List<Produto> produtos = em.createQuery("from Produto").getResultList();
+        
 %>
 
 
@@ -20,6 +28,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%for (int i=0; i<produtos.size(); i++) {%>
+            <p><%=produtos.get(i).getNome()%></p>
+        <%}%>
     </body>
 </html>
