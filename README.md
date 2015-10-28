@@ -11,8 +11,8 @@ fazer download do jar http://mvnrepository.com/artifact/org.jboss/jandex e adici
 
 alterar a instalação do Java DB para a fornecida pelo Glassfish(C:\Program Files\glassfish-4.1\javadb), pois a instalação padrão do netbeans da erro <br><br>
 
-conexão com o banco configurada com informações abaixo, criar o banco antes caso não exista <br>
-database: TrabalhoISS <br>
+conexão com o banco configurada com informações abaixo, criar o banco pelo netbeans caso não exista <br>
+nome database: trabalhoISS <br>
 usuario: root <br>
 senha: root <br>
 
