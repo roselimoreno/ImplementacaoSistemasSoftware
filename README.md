@@ -5,7 +5,7 @@ Hibernate 4.3.x (jpa 2.1) <br>
 JSF 2.2 <br>
 PrimeFaces 5.3 <br>
 Glassfish 4.1 <br> 
-Banco de dados Java DB <br>
+Banco de dados Java DB <br><br>
 
 fazer download do jar http://mvnrepository.com/artifact/org.jboss/jandex e adicioná-lo à biblioteca Hibernate, pois a instalação padrão do netbeans da erro nessa classe <br><br>
 
