@@ -11,7 +11,7 @@ fazer download do jar http://mvnrepository.com/artifact/org.jboss/jandex e adici
 
 alterar a instalação do Java DB para a fornecida pelo Glassfish(C:\Program Files\glassfish-4.1\javadb), pois a instalação padrão do netbeans da erro. Clique direito no serviço Java DB->Propriedades <br><br>
 
-conexão com o banco configurada com informações abaixo, criar o banco antes de executar pela primeira vez. Clique direito em JavaDB->Criar database <br>
+conexão com o banco configurada com informações abaixo, criar o banco antes de executar pela primeira vez <br>
 server: localhost <br>
 port: 1527 <br>
 database: trabalhoISS <br>
