@@ -12,7 +12,9 @@ import javax.persistence.Persistence;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import modelo.Produto;
+import modelo.entidade.Produto;
+import modelo.enumeracao.CategoriasEnum;
+import modelo.enumeracao.GenerosEnum;
 
 /**
  *
@@ -34,7 +36,7 @@ public class EMF implements ServletContextListener {
         List<Produto> produtos = em.createQuery("from Produto").getResultList();
         
         if (produtos.isEmpty()) {
-            Produto p = new Produto("Tenis Adidas") ;
+            Produto p = new Produto("Tenis Adidas", CategoriasEnum.CALCADOS, GenerosEnum.MASCULINO) ;
             em.persist(p);
         }
         

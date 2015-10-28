@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        #{controladorProduto.listarProdutos()}
+        
+        <h:form>
+            Nome <br />
+            <h:inputText value="#{produtoBean.nome}" /> <br /><br />
+            Categoria <br />
+            <h:selectOneMenu value="#{produtoBean.categoria}">
+                <f:selectItem itemLabel="#{categoriasEnum.categorias[0].toString()}" itemValue="#{categoriasEnum.categorias[0]}" />
+                <f:selectItem itemLabel="#{categoriasEnum.categorias[1].toString()}" itemValue="#{categoriasEnum.categorias[1]}" />
+                <f:selectItem itemLabel="#{categoriasEnum.categorias[2].toString()}" itemValue="#{categoriasEnum.categorias[2]}" />
+             </h:selectOneMenu> <br /> <br />
+            Genero <br />
+            <h:selectOneMenu value="#{produtoBean.genero}">
+                <f:selectItem itemLabel="#{generosEnum.generos[0].toString()}" itemValue="#{generosEnum.generos[0]}" />
+                <f:selectItem itemLabel="#{generosEnum.generos[1].toString()}" itemValue="#{generosEnum.generos[1]}" />
+                 <f:selectItem itemLabel="#{generosEnum.generos[2].toString()}" itemValue="#{generosEnum.generos[2]}" />
+            </h:selectOneMenu> <br /> <br />
+            <h:commandButton value="Adicionar" action="#{controladorProduto.adicionar(produtoBean)}" />
+            <h:commandButton value="Atualizar" action="#{controladorProduto.atualizar(produtoBean, controladorProduto.produtos[0].id)}" />
+            <h:commandButton value="Remover" action="#{controladorProduto.remover(controladorProduto.produtos[0].id)}" />
+        </h:form>
+        <br /> <br />
+        
+        <p:dataList value="#{controladorProduto.produtos}" var="produtos">
+            #{produtos.nome}, #{produtos.categoria.toString()}, #{produtos.genero.toString()}
+        </p:dataList>
+    </h:body>
+</html>
+

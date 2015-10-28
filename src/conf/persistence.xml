@@ -3,7 +3,7 @@
   <persistence-unit name="TrabalhoISS" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <non-jta-data-source>java:comp/DefaultDataSource</non-jta-data-source>
-    <class>modelo.Produto</class>
+    <class>modelo.entidade.Produto</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name=" hibernate.hbm2ddl.auto" value="update"/>
