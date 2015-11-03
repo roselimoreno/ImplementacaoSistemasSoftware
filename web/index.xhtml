@@ -8,28 +8,142 @@
 
 
     <h:head>
-        <title>Facelet Title</title>
+        <title>Active Web Center</title>
+       
+        <style>
+            #painelLoginCarrinho {z-index:2 !important; }
+            #painelLoginCarrinho div {overflow:visible;}
+            
+            #painelMenu {z-index:1 !important; }
+            #painelMenu div {overflow:visible;}
+        </style>
+    
     </h:head>
     <h:body>
+        <p:layout style="height:76px; width:100%">
+            <p:layoutUnit position="west" size="33%">
+                <p style="margin:0px; padding:0px; margin-left:20%; margin-top:3%; font-size:26px">Active Web Center</p>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" size="34%">
+                <div style="margin:0px; margin-left:20%; margin-top:2%">
+                    <h:form>
+                        <p:inputText style="width:70%"></p:inputText>
+                        <p:commandButton icon="ui-icon-search"></p:commandButton>
+                    </h:form>
+                </div>   
+            </p:layoutUnit>
+            <p:layoutUnit position="east" size="33%" id="painelLoginCarrinho">
+                <p:layout>
+                    <p:layoutUnit position="west" size="50%" style="border-style:none">
+                        <p:menubar>
+                            <p:submenu label="Entrar">
+                                <p:menuitem value="Logar" url="#" />
+                                <p:menuitem value="Cadastrar" url="#" />
+                            </p:submenu>
+                        </p:menubar>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center" size="50%" style="border-style:none">
+                        <p:menubar>
+                            <p:submenu label="Carrinho" icon="ui-icon-cart">
+                                <p:menuitem value="Vazio" url="#" />
+                            </p:submenu>
+                        </p:menubar>
+                    </p:layoutUnit>
+                </p:layout>
+            </p:layoutUnit>
+        </p:layout>
+        <p:layout style="height:50px; width:100%; margin:0px; padding:0px; margin-top:6px">
+            <p:layoutUnit position="center" size="100%" id="painelMenu">
+                <p:megaMenu  style="margin-top:-5px;border-style:none">
+                    <p:submenu label="Masculino">
+                        <p:column>
+                            <p:submenu label="Roupas">
+                                <p:menuitem value="Camisetas" url="#" />
+                                <p:menuitem value="Bermudas" url="#" />
+                            </p:submenu>
+                        </p:column>
+                        <p:column>
+                            <p:submenu label="Calçados">
+                                <p:menuitem value="Corrida" url="#" />
+                                <p:menuitem value="Futebol" url="#" />
+                                <p:menuitem value="Casual" url="#" />
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+                    <p:submenu label="Feminino">
+                        <p:column>
+                            <p:submenu label="Roupas">
+                                <p:menuitem value="Camisetas" url="#" />
+                                <p:menuitem value="Bermudas" url="#" />
+                            </p:submenu>
+                        </p:column>
+                        <p:column>
+                            <p:submenu label="Calçados">
+                                <p:menuitem value="Corrida" url="#" />
+                                <p:menuitem value="Futebol" url="#" />
+                                <p:menuitem value="Casual" url="#" />
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+                    <p:submenu label="Roupas">
+                        <p:column>
+                            <p:submenu label="Tipo">
+                                <p:menuitem value="Camisetas" url="#" />
+                                <p:menuitem value="Bermudas" url="#" />
+                            </p:submenu>
+                        </p:column>
+                        <p:column>
+                            <p:submenu label="Gênero">
+                                <p:menuitem value="Masculino" url="#" />
+                                <p:menuitem value="Feminino" url="#" />
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+                    <p:submenu label="Calçados">
+                        <p:column>
+                            <p:submenu label="Tipo">
+                                <p:menuitem value="Corrida" url="#" />
+                                <p:menuitem value="Futebol" url="#" />
+                                <p:menuitem value="Casual" url="#" />        
+                            </p:submenu>
+                        </p:column>
+                        <p:column>
+                            <p:submenu label="Gênero">
+                                <p:menuitem value="Masculino" url="#" />
+                                <p:menuitem value="Feminino" url="#" />
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+                </p:megaMenu>
+            </p:layoutUnit>
+        </p:layout>
+        
+        
+        
+        
+        
+        
+        
+        
         #{controladorProduto.listarProdutos()}
         
         <h:form>
             Nome <br />
-            <h:inputText value="#{produtoBean.nome}" /> <br /><br />
+            <h:inputText value="#{produto.nome}" /> <br /><br />
             Categoria <br />
-            <h:selectOneMenu value="#{produtoBean.categoria}">
+            <h:selectOneMenu value="#{produto.categoria}">
                 <f:selectItem itemLabel="#{categoriasEnum.categorias[0].toString()}" itemValue="#{categoriasEnum.categorias[0]}" />
                 <f:selectItem itemLabel="#{categoriasEnum.categorias[1].toString()}" itemValue="#{categoriasEnum.categorias[1]}" />
                 <f:selectItem itemLabel="#{categoriasEnum.categorias[2].toString()}" itemValue="#{categoriasEnum.categorias[2]}" />
              </h:selectOneMenu> <br /> <br />
             Genero <br />
-            <h:selectOneMenu value="#{produtoBean.genero}">
+            <h:selectOneMenu value="#{produto.genero}">
                 <f:selectItem itemLabel="#{generosEnum.generos[0].toString()}" itemValue="#{generosEnum.generos[0]}" />
                 <f:selectItem itemLabel="#{generosEnum.generos[1].toString()}" itemValue="#{generosEnum.generos[1]}" />
                  <f:selectItem itemLabel="#{generosEnum.generos[2].toString()}" itemValue="#{generosEnum.generos[2]}" />
             </h:selectOneMenu> <br /> <br />
-            <h:commandButton value="Adicionar" action="#{controladorProduto.adicionar(produtoBean)}" />
-            <h:commandButton value="Atualizar" action="#{controladorProduto.atualizar(produtoBean, controladorProduto.produtos[0].id)}" />
+            <h:commandButton value="Adicionar" action="#{controladorProduto.adicionar(produto)}" />
+            <h:commandButton value="Atualizar" action="#{controladorProduto.atualizar(produto, controladorProduto.produtos[0].id)}" />
             <h:commandButton value="Remover" action="#{controladorProduto.remover(controladorProduto.produtos[0].id)}" />
         </h:form>
         <br /> <br />

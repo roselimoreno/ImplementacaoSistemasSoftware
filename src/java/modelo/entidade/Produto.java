@@ -19,7 +19,7 @@ import modelo.enumeracao.GenerosEnum;
  * @author Gabriel
  */
 
-@ManagedBean (name="produtoBean")
+@ManagedBean (name="produto")
 @RequestScoped
 @Entity
 public class Produto {
