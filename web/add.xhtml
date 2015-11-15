@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      
+    <h:head>
+        
+    </h:head>
+    
+    <h:body>
+        <h:form>
+            Nome <br />
+            <h:inputText value="#{produto.nome}" /> <br /><br />
+            Preco <br />
+            <h:inputText value="#{produto.preco}" /> <br /><br />
+            Tipo Produto <br />
+            <h:selectOneMenu value="#{produto.tipo}">
+                <f:selectItem itemLabel="#{tipoProdutoEnum.tipos[0].toString()}" itemValue="#{tipoProdutoEnum.tipos[0]}" />
+                <f:selectItem itemLabel="#{tipoProdutoEnum.tipos[1].toString()}" itemValue="#{tipoProdutoEnum.tipos[1]}" />
+                <f:selectItem itemLabel="#{tipoProdutoEnum.tipos[2].toString()}" itemValue="#{tipoProdutoEnum.tipos[2]}" />
+             </h:selectOneMenu> <br /> <br />
+            Categoria <br />
+            <h:selectOneMenu value="#{produto.categoria}">
+                <f:selectItem itemLabel="#{categoriaProdutoEnum.categorias[0].toString()}" itemValue="#{categoriaProdutoEnum.categorias[0]}" />
+                <f:selectItem itemLabel="#{categoriaProdutoEnum.categorias[1].toString()}" itemValue="#{categoriaProdutoEnum.categorias[1]}" />
+                <f:selectItem itemLabel="#{categoriaProdutoEnum.categorias[2].toString()}" itemValue="#{categoriaProdutoEnum.categorias[2]}" />
+             </h:selectOneMenu> <br /> <br />
+            Genero <br />
+            <h:selectOneMenu value="#{produto.genero}">
+                <f:selectItem itemLabel="#{generoEnum.generos[0].toString()}" itemValue="#{generoEnum.generos[0]}" />
+                <f:selectItem itemLabel="#{generoEnum.generos[1].toString()}" itemValue="#{generoEnum.generos[1]}" />
+                 <f:selectItem itemLabel="#{generoEnum.generos[2].toString()}" itemValue="#{generoEnum.generos[2]}" />
+            </h:selectOneMenu> <br /> <br />
+            <h:commandButton value="Adicionar" action="#{controladorProduto.adicionar(produto)}" />
+            <h:commandButton value="Atualizar" action="#{controladorProduto.atualizar(produto, controladorProduto.produtos[0].id)}" />
+            <h:commandButton value="Remover" action="#{controladorProduto.remover(controladorProduto.produtos[0].id)}" />
+        </h:form>
+        <br /> <br />
+        
+        <p:dataList value="#{controladorProduto.produtos}" var="produtos">
+            #{produtos.nome}, #{produtos.tipo.toString()}, #{produtos.genero.toString()}, #{produtos.imagemURL}
+        </p:dataList>
+    </h:body>
+</html>

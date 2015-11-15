@@ -5,22 +5,17 @@
  */
 package modelo.enumeracao;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-
 /**
  *
  * @author Gabriel
  */
-
-
-public enum GenerosEnum {
+public enum CategoriaProdutoEnum {
     
-    MASCULINO("Masculino"), FEMININO("Feminino"), UNISEX("Unisex") ;
+    CORRIDA("Corrida"), FUTEBOL("Futebol"), CASUAL("Casual") ;
     
     private final String str;
     
-    private GenerosEnum(final String str) {
+    private CategoriaProdutoEnum(final String str) {
         this.str = str;
     }
     

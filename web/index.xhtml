@@ -58,13 +58,14 @@
                 <p:megaMenu  style="margin-top:-5px;border-style:none">
                     <p:submenu label="Masculino">
                         <p:column>
-                            <p:submenu label="Roupas">
+                            <p:submenu label="Tipo">
                                 <p:menuitem value="Camisetas" url="#" />
                                 <p:menuitem value="Bermudas" url="#" />
+                                <p:menuitem value="Calçados" url="#" />
                             </p:submenu>
                         </p:column>
                         <p:column>
-                            <p:submenu label="Calçados">
+                            <p:submenu label="Categoria">
                                 <p:menuitem value="Corrida" url="#" />
                                 <p:menuitem value="Futebol" url="#" />
                                 <p:menuitem value="Casual" url="#" />
@@ -73,24 +74,41 @@
                     </p:submenu>
                     <p:submenu label="Feminino">
                         <p:column>
-                            <p:submenu label="Roupas">
+                            <p:submenu label="Tipo">
                                 <p:menuitem value="Camisetas" url="#" />
                                 <p:menuitem value="Bermudas" url="#" />
+                                <p:menuitem value="Calçados" url="#" />
                             </p:submenu>
                         </p:column>
                         <p:column>
-                            <p:submenu label="Calçados">
+                            <p:submenu label="Categoria">
                                 <p:menuitem value="Corrida" url="#" />
                                 <p:menuitem value="Futebol" url="#" />
                                 <p:menuitem value="Casual" url="#" />
                             </p:submenu>
                         </p:column>
                     </p:submenu>
-                    <p:submenu label="Roupas">
+                    <p:submenu label="Camisetas">
                         <p:column>
-                            <p:submenu label="Tipo">
-                                <p:menuitem value="Camisetas" url="#" />
-                                <p:menuitem value="Bermudas" url="#" />
+                            <p:submenu label="Categoria">
+                                <p:menuitem value="Corrida" url="#" />
+                                <p:menuitem value="Futebol" url="#" />
+                                <p:menuitem value="Casual" url="#" />
+                            </p:submenu>
+                        </p:column>
+                        <p:column>
+                            <p:submenu label="Gênero">
+                                <p:menuitem value="Masculino" url="#" />
+                                <p:menuitem value="Feminino" url="#" />
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+                    <p:submenu label="Bermudas">
+                        <p:column>
+                            <p:submenu label="Categoria">
+                                <p:menuitem value="Corrida" url="#" />
+                                <p:menuitem value="Futebol" url="#" />
+                                <p:menuitem value="Casual" url="#" />
                             </p:submenu>
                         </p:column>
                         <p:column>
@@ -102,7 +120,7 @@
                     </p:submenu>
                     <p:submenu label="Calçados">
                         <p:column>
-                            <p:submenu label="Tipo">
+                            <p:submenu label="Categoria">
                                 <p:menuitem value="Corrida" url="#" />
                                 <p:menuitem value="Futebol" url="#" />
                                 <p:menuitem value="Casual" url="#" />        
@@ -122,6 +140,18 @@
         <c:if test="#{empty controladorProduto.produtos}">
             #{controladorProduto.listarProdutos()}
         </c:if>
+            
+        
+       
+        <h:panelGroup rendered="#{empty controladorProduto.produtos}">
+            <div style="margin-top:6px; margin-bottom:6px;" align="center">
+                <p:imageSwitch effect="fade" style="z-index:-1">
+                    <p:graphicImage url="img/propagandas/1.jpg" />
+                    <p:graphicImage url="img/propagandas/2.jpg" />
+                    <p:graphicImage url="img/propagandas/3.jpg" />
+                </p:imageSwitch>
+            </div>
+        </h:panelGroup>
         
         <p:layout style="height:34px; width:100%; margin:0px; padding:0px; margin-top:6px; margin-bottom:6px" rendered="#{not empty controladorProduto.produtos}">
             <p:layoutUnit position="center" size="100%">
@@ -140,27 +170,45 @@
             <p:panel header="#{produtos.nome}" style="text-align:center;">
                 <h:panelGrid columns="1" style="width:100%">
                     <p:graphicImage url="#{produtos.imagemURL}" />
+                    <h:outputText value="#{produtos.tipo.toString()}" />
+                    <h:outputText value="#{produtos.categoria.toString()}" />
+                    <h:outputText value="#{produtos.genero.toString()}" />                                
                     <h:outputText value="R$ #{produtos.preco}" />                    
                 </h:panelGrid>    
             </p:panel>    
         </p:dataGrid>
         
-        <h:form>
+        <p:layout style="height:50px; width:100%; margin:0px; padding:0px; margin-top:6px">
+            <p:layoutUnit position="center" size="100%">
+                <div align="center" style="position:relative; top:6px">
+                   Footer 
+                </div>
+            </p:layoutUnit>
+        </p:layout>
+        
+        <br /> <br /> <br/> <br/> <br/>
+         <h:form>
             Nome <br />
             <h:inputText value="#{produto.nome}" /> <br /><br />
             Preco <br />
             <h:inputText value="#{produto.preco}" /> <br /><br />
+            Tipo Produto <br />
+            <h:selectOneMenu value="#{produto.tipo}">
+                <f:selectItem itemLabel="#{tipoProdutoEnum.tipos[0].toString()}" itemValue="#{tipoProdutoEnum.tipos[0]}" />
+                <f:selectItem itemLabel="#{tipoProdutoEnum.tipos[1].toString()}" itemValue="#{tipoProdutoEnum.tipos[1]}" />
+                <f:selectItem itemLabel="#{tipoProdutoEnum.tipos[2].toString()}" itemValue="#{tipoProdutoEnum.tipos[2]}" />
+             </h:selectOneMenu> <br /> <br />
             Categoria <br />
             <h:selectOneMenu value="#{produto.categoria}">
-                <f:selectItem itemLabel="#{categoriasEnum.categorias[0].toString()}" itemValue="#{categoriasEnum.categorias[0]}" />
-                <f:selectItem itemLabel="#{categoriasEnum.categorias[1].toString()}" itemValue="#{categoriasEnum.categorias[1]}" />
-                <f:selectItem itemLabel="#{categoriasEnum.categorias[2].toString()}" itemValue="#{categoriasEnum.categorias[2]}" />
+                <f:selectItem itemLabel="#{categoriaProdutoEnum.categorias[0].toString()}" itemValue="#{categoriaProdutoEnum.categorias[0]}" />
+                <f:selectItem itemLabel="#{categoriaProdutoEnum.categorias[1].toString()}" itemValue="#{categoriaProdutoEnum.categorias[1]}" />
+                <f:selectItem itemLabel="#{categoriaProdutoEnum.categorias[2].toString()}" itemValue="#{categoriaProdutoEnum.categorias[2]}" />
              </h:selectOneMenu> <br /> <br />
             Genero <br />
             <h:selectOneMenu value="#{produto.genero}">
-                <f:selectItem itemLabel="#{generosEnum.generos[0].toString()}" itemValue="#{generosEnum.generos[0]}" />
-                <f:selectItem itemLabel="#{generosEnum.generos[1].toString()}" itemValue="#{generosEnum.generos[1]}" />
-                 <f:selectItem itemLabel="#{generosEnum.generos[2].toString()}" itemValue="#{generosEnum.generos[2]}" />
+                <f:selectItem itemLabel="#{generoEnum.generos[0].toString()}" itemValue="#{generoEnum.generos[0]}" />
+                <f:selectItem itemLabel="#{generoEnum.generos[1].toString()}" itemValue="#{generoEnum.generos[1]}" />
+                 <f:selectItem itemLabel="#{generoEnum.generos[2].toString()}" itemValue="#{generoEnum.generos[2]}" />
             </h:selectOneMenu> <br /> <br />
             <h:commandButton value="Adicionar" action="#{controladorProduto.adicionar(produto)}" />
             <h:commandButton value="Atualizar" action="#{controladorProduto.atualizar(produto, controladorProduto.produtos[0].id)}" />
@@ -169,7 +217,7 @@
         <br /> <br />
         
         <p:dataList value="#{controladorProduto.produtos}" var="produtos">
-            #{produtos.nome}, #{produtos.categoria.toString()}, #{produtos.genero.toString()}, #{produtos.imagemURL}
+            #{produtos.nome}, #{produtos.tipo.toString()}, #{produtos.genero.toString()}, #{produtos.imagemURL}
         </p:dataList>
     </h:body>
 </html>

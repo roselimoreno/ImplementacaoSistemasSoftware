@@ -5,22 +5,19 @@
  */
 package modelo.enumeracao;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-
 /**
  *
  * @author Gabriel
  */
 
 
-public enum CategoriasEnum {
+public enum GeneroEnum {
     
-    CAMISETAS("Camisetas"), BERMUDAS("Bermudas"), CALCADOS("Calçados") ;
+    MASCULINO("Masculino"), FEMININO("Feminino"), UNISEX("Unisex") ;
     
     private final String str;
     
-    private CategoriasEnum(final String str) {
+    private GeneroEnum(final String str) {
         this.str = str;
     }
     

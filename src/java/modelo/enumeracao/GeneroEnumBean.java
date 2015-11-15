@@ -13,19 +13,20 @@ import javax.faces.bean.ManagedBean;
  * @author Gabriel
  */
 
-
-@ManagedBean (name="categoriasEnum")
+@ManagedBean (name="generoEnum")
 @ApplicationScoped
-public class CategoriasEnumBean {
+public class GeneroEnumBean {
     
-    private CategoriasEnum categorias[] = {CategoriasEnum.CAMISETAS, CategoriasEnum.BERMUDAS, CategoriasEnum.CALCADOS} ;
+    private GeneroEnum generos[] = {GeneroEnum.MASCULINO, GeneroEnum.FEMININO, GeneroEnum.UNISEX} ;
 
-    public CategoriasEnumBean() {
+    public GeneroEnumBean() {
         
     }
 
-    public CategoriasEnum[] getCategorias() {
-        return categorias;
+    public GeneroEnum[] getGeneros() {
+        return generos;
     }
+
+   
     
 }

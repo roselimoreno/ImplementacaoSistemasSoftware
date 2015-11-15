@@ -11,8 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import modelo.enumeracao.CategoriasEnum;
-import modelo.enumeracao.GenerosEnum;
+import modelo.enumeracao.CategoriaProdutoEnum;
+import modelo.enumeracao.TipoProdutoEnum;
+import modelo.enumeracao.GeneroEnum;
 
 /**
  *
@@ -30,17 +31,19 @@ public class Produto {
     private String nome ;
     private String imagemURL ;
     private double preco ;
-    private CategoriasEnum categoria ;
-    private GenerosEnum genero ;
+    private TipoProdutoEnum tipo ;
+    private CategoriaProdutoEnum categoria ;
+    private GeneroEnum genero ;
 
     public Produto() {
     
     }
     
-    public Produto(String nome, String imagemURL, double preco, CategoriasEnum categoria, GenerosEnum genero) {
+    public Produto(String nome, String imagemURL, double preco, TipoProdutoEnum tipo, CategoriaProdutoEnum categoria, GeneroEnum genero) {
         this.nome = nome ;
         this.imagemURL = imagemURL ;
         this.preco = preco ;
+        this.tipo = tipo ;
         this.categoria = categoria ;
         this.genero = genero ;
     }
@@ -79,24 +82,30 @@ public class Produto {
     
     
 
-    public CategoriasEnum getCategoria() {
-        return categoria;
+    public TipoProdutoEnum getTipo() {
+        return tipo;
     }
 
-    public void setCategoria(CategoriasEnum categoria) {
-        this.categoria = categoria;
+    public void setTipo(TipoProdutoEnum tipo) {
+        this.tipo = tipo;
     }
 
-    public GenerosEnum getGenero() {
+    public GeneroEnum getGenero() {
         return genero;
     }
 
-    public void setGenero(GenerosEnum genero) {
+    public void setGenero(GeneroEnum genero) {
         this.genero = genero;
+    }
+
+    public CategoriaProdutoEnum getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaProdutoEnum categoria) {
+        this.categoria = categoria;
     }
     
     
     
-    
-
 }

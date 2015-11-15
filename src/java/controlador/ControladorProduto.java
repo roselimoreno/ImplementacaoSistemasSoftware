@@ -13,7 +13,7 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 import modelo.entidade.Produto;
-import modelo.enumeracao.CategoriasEnum;
+import modelo.enumeracao.TipoProdutoEnum;
 import persistencia.EMF;
 
 /**
@@ -34,20 +34,21 @@ public class ControladorProduto {
     }
     
     public void adicionar(Produto p) {
-        if (p.getCategoria() == CategoriasEnum.BERMUDAS) p.setImagemURL("img/bermuda.jpg");
-        if (p.getCategoria() == CategoriasEnum.CAMISETAS) p.setImagemURL("img/camiseta.jpg");
-        if (p.getCategoria() == CategoriasEnum.CALCADOS) p.setImagemURL("img/tenis.jpg");
+        if (p.getTipo() == TipoProdutoEnum.BERMUDAS) p.setImagemURL("img/produtos/bermuda.jpg");
+        if (p.getTipo() == TipoProdutoEnum.CAMISETAS) p.setImagemURL("img/produtos/camiseta.jpg");
+        if (p.getTipo() == TipoProdutoEnum.CALCADOS) p.setImagemURL("img/produtos/tenis.jpg");
         
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
+        listarProdutos() ;
     }
     
     public void atualizar(Produto p, int id) {
         em.getTransaction().begin() ;
         Produto pAux = em.find(Produto.class, id) ;
         pAux.setNome(p.getNome());
-        pAux.setCategoria(p.getCategoria());
+        pAux.setTipo(p.getTipo());
         pAux.setGenero(p.getGenero());
         em.merge(pAux) ;
         em.getTransaction().commit() ;
@@ -58,6 +59,7 @@ public class ControladorProduto {
         Produto p = em.find(Produto.class, id) ;
         em.remove(p);
         em.getTransaction().commit();
+        listarProdutos() ;
     }
     
     public void listarProdutos() {
