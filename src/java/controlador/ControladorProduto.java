@@ -5,11 +5,15 @@
  */
 package controlador;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 import modelo.entidade.Produto;
+import modelo.enumeracao.CategoriasEnum;
 import persistencia.EMF;
 
 /**
@@ -30,6 +34,10 @@ public class ControladorProduto {
     }
     
     public void adicionar(Produto p) {
+        if (p.getCategoria() == CategoriasEnum.BERMUDAS) p.setImagemURL("img/bermuda.jpg");
+        if (p.getCategoria() == CategoriasEnum.CAMISETAS) p.setImagemURL("img/camiseta.jpg");
+        if (p.getCategoria() == CategoriasEnum.CALCADOS) p.setImagemURL("img/tenis.jpg");
+        
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
@@ -56,6 +64,32 @@ public class ControladorProduto {
         em.getTransaction().begin();
         produtos = em.createQuery("from Produto").getResultList();
         em.getTransaction().commit();
+    }
+    
+    public void ordenarMaisVendidos() {
+        
+    }
+    
+    public void ordenarMaiorPreco() {
+        Collections.sort(produtos, new Comparator<Produto>() {
+
+            @Override
+            public int compare(Produto p1, Produto p2) {
+                return (int)(p2.getPreco()-p1.getPreco()) ;
+            }
+            
+        });
+    }
+    
+    public void ordenarMenorPreco() {
+        Collections.sort(produtos, new Comparator<Produto>() {
+
+            @Override
+            public int compare(Produto p1, Produto p2) {
+                return (int)(p1.getPreco()-p2.getPreco()) ;
+            }
+            
+        });
     }
     
     public Produto getProduto() {

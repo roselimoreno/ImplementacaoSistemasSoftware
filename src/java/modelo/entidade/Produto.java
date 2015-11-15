@@ -28,6 +28,8 @@ public class Produto {
     @GeneratedValue (strategy=GenerationType.IDENTITY)
     private int id ;
     private String nome ;
+    private String imagemURL ;
+    private double preco ;
     private CategoriasEnum categoria ;
     private GenerosEnum genero ;
 
@@ -35,8 +37,10 @@ public class Produto {
     
     }
     
-    public Produto(String nome, CategoriasEnum categoria, GenerosEnum genero) {
+    public Produto(String nome, String imagemURL, double preco, CategoriasEnum categoria, GenerosEnum genero) {
         this.nome = nome ;
+        this.imagemURL = imagemURL ;
+        this.preco = preco ;
         this.categoria = categoria ;
         this.genero = genero ;
     }
@@ -56,6 +60,24 @@ public class Produto {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getImagemURL() {
+        return imagemURL;
+    }
+
+    public void setImagemURL(String imagemURL) {
+        this.imagemURL = imagemURL;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+    
+    
 
     public CategoriasEnum getCategoria() {
         return categoria;

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"  
       xmlns:f="http://java.sun.com/jsf/core"  
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 
 
@@ -118,18 +119,37 @@
             </p:layoutUnit>
         </p:layout>
         
+        <c:if test="#{empty controladorProduto.produtos}">
+            #{controladorProduto.listarProdutos()}
+        </c:if>
         
-        
-        
-        
-        
-        
-        
-        #{controladorProduto.listarProdutos()}
+        <p:layout style="height:34px; width:100%; margin:0px; padding:0px; margin-top:6px; margin-bottom:6px" rendered="#{not empty controladorProduto.produtos}">
+            <p:layoutUnit position="center" size="100%">
+                <h:form>
+                    <div style="font-size:12px; text-align:right; position:relative; top:4px">
+                        Ordenar por: 
+                        <h:commandLink value="Mais Vendidos" action="#{controladorProduto.ordenarMaisVendidos}"/> / 
+                        <h:commandLink value="Maior Preço" action="#{controladorProduto.ordenarMaiorPreco}"/> /
+                        <h:commandLink value="Menor Preço" action="#{controladorProduto.ordenarMenorPreco}"/>
+                    </div>    
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+        <p:dataGrid var="produtos" value="#{controladorProduto.produtos}" columns="3" rows="12" paginator="true" paginatorPosition="bottom" rendered="#{not empty controladorProduto.produtos}"
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="6,12,16">
+            <p:panel header="#{produtos.nome}" style="text-align:center;">
+                <h:panelGrid columns="1" style="width:100%">
+                    <p:graphicImage url="#{produtos.imagemURL}" />
+                    <h:outputText value="R$ #{produtos.preco}" />                    
+                </h:panelGrid>    
+            </p:panel>    
+        </p:dataGrid>
         
         <h:form>
             Nome <br />
             <h:inputText value="#{produto.nome}" /> <br /><br />
+            Preco <br />
+            <h:inputText value="#{produto.preco}" /> <br /><br />
             Categoria <br />
             <h:selectOneMenu value="#{produto.categoria}">
                 <f:selectItem itemLabel="#{categoriasEnum.categorias[0].toString()}" itemValue="#{categoriasEnum.categorias[0]}" />
@@ -149,7 +169,7 @@
         <br /> <br />
         
         <p:dataList value="#{controladorProduto.produtos}" var="produtos">
-            #{produtos.nome}, #{produtos.categoria.toString()}, #{produtos.genero.toString()}
+            #{produtos.nome}, #{produtos.categoria.toString()}, #{produtos.genero.toString()}, #{produtos.imagemURL}
         </p:dataList>
     </h:body>
 </html>

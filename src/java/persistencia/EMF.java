@@ -32,15 +32,6 @@ public class EMF implements ServletContextListener {
         emf = Persistence.createEntityManagerFactory("TrabalhoISS");  
         
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin() ;
-        List<Produto> produtos = em.createQuery("from Produto").getResultList();
-        
-        if (produtos.isEmpty()) {
-            Produto p = new Produto("Tenis Adidas", CategoriasEnum.CALCADOS, GenerosEnum.MASCULINO) ;
-            em.persist(p);
-        }
-        
-        em.getTransaction().commit();
         
     }  
    
