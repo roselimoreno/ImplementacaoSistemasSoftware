@@ -142,13 +142,13 @@
         </c:if>
             
         
-       
         <h:panelGroup rendered="#{empty controladorProduto.produtos}">
             <div style="margin-top:6px; margin-bottom:6px;" align="center">
                 <p:imageSwitch effect="fade" style="z-index:-1">
-                    <p:graphicImage url="img/propagandas/1.jpg" />
-                    <p:graphicImage url="img/propagandas/2.jpg" />
-                    <p:graphicImage url="img/propagandas/3.jpg" />
+                    <p:graphicImage url="img/propagandas/1.jpg" style="max-width:100%"/>
+                    <p:graphicImage url="img/propagandas/2.jpg" style="max-width:100%" />
+                    <p:graphicImage url="img/propagandas/3.jpg" style="max-width:100%" />
+                    <p:graphicImage url="img/propagandas/4.jpg" style="max-width:100%" />
                 </p:imageSwitch>
             </div>
         </h:panelGroup>
@@ -156,11 +156,12 @@
         <p:layout style="height:34px; width:100%; margin:0px; padding:0px; margin-top:6px; margin-bottom:6px" rendered="#{not empty controladorProduto.produtos}">
             <p:layoutUnit position="center" size="100%">
                 <h:form>
-                    <div style="font-size:12px; text-align:right; position:relative; top:4px">
+                    <div style="font-size:12px; text-align:right; position:relative; top:4px; margin-right: 4px">
                         Ordenar por: 
-                        <h:commandLink value="Mais Vendidos" action="#{controladorProduto.ordenarMaisVendidos}"/> / 
-                        <h:commandLink value="Maior Preço" action="#{controladorProduto.ordenarMaiorPreco}"/> /
-                        <h:commandLink value="Menor Preço" action="#{controladorProduto.ordenarMenorPreco}"/>
+                        <h:commandLink value="Mais Novos" action="#{controladorProduto.ordenarMaisNovos}" style="#{(controladorProduto.indiceOrdenacaoAtual==0) ? 'font-weight:bold' : ''}"/> |
+                        <h:commandLink value="Mais Vendidos" action="#{controladorProduto.ordenarMaisVendidos}" style="#{(controladorProduto.indiceOrdenacaoAtual==1) ? 'font-weight:bold' : ''}" /> |
+                        <h:commandLink value="Menor Preço" action="#{controladorProduto.ordenarMenorPreco}" style="#{(controladorProduto.indiceOrdenacaoAtual==2) ? 'font-weight:bold' : ''}" /> |
+                        <h:commandLink value="Maior Preço" action="#{controladorProduto.ordenarMaiorPreco}" style="#{(controladorProduto.indiceOrdenacaoAtual==3) ? 'font-weight:bold' : ''}" />
                     </div>    
                 </h:form>
             </p:layoutUnit>

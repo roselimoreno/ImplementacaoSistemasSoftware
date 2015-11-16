@@ -11,8 +11,10 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
-import javax.swing.JOptionPane;
 import modelo.entidade.Produto;
+import modelo.enumeracao.CategoriaProdutoEnum;
+import modelo.enumeracao.GeneroEnum;
+import modelo.enumeracao.OrdenacaoListaEnum;
 import modelo.enumeracao.TipoProdutoEnum;
 import persistencia.EMF;
 
@@ -23,11 +25,18 @@ import persistencia.EMF;
 @ManagedBean (name="controladorProduto")
 @SessionScoped
 public class ControladorProduto {
+      
+    private EntityManager em ;
     
     private Produto produto ;
     private List<Produto> produtos ;
-    private EntityManager em ;
-
+    private OrdenacaoListaEnum ordenacaoAtual ;
+    
+    private TipoProdutoEnum tipo ;
+    private CategoriaProdutoEnum categoria ;
+    private GeneroEnum genero ;
+    
+    
     
     public ControladorProduto() {
         em = EMF.createEntityManager() ;
@@ -64,8 +73,21 @@ public class ControladorProduto {
     
     public void listarProdutos() {
         em.getTransaction().begin();
-        produtos = em.createQuery("from Produto").getResultList();
+        produtos = em.createQuery("from Produto order by id desc").getResultList();
         em.getTransaction().commit();
+        ordenacaoAtual = OrdenacaoListaEnum.MAIS_NOVOS ;
+    }
+    
+    public void ordenarMaisNovos() {
+        Collections.sort(produtos, new Comparator<Produto>() {
+
+            @Override
+            public int compare(Produto p1, Produto p2) {
+                return (int)(p2.getId()-p1.getId()) ;
+            }
+            
+        });
+        ordenacaoAtual = OrdenacaoListaEnum.MAIS_NOVOS ;
     }
     
     public void ordenarMaisVendidos() {
@@ -81,6 +103,7 @@ public class ControladorProduto {
             }
             
         });
+        ordenacaoAtual = OrdenacaoListaEnum.MAIOR_PRECO ;
     }
     
     public void ordenarMenorPreco() {
@@ -92,6 +115,7 @@ public class ControladorProduto {
             }
             
         });
+        ordenacaoAtual = OrdenacaoListaEnum.MENOR_PRECO ;
     }
     
     public Produto getProduto() {
@@ -105,6 +129,43 @@ public class ControladorProduto {
     public List<Produto> getProdutos() {
         return produtos;
     }
+
+    public OrdenacaoListaEnum getOrdenacaoAtual() {
+        return ordenacaoAtual;
+    }
+
+    public int getIndiceOrdenacaoAtual() {
+        if (ordenacaoAtual == OrdenacaoListaEnum.MAIS_NOVOS) return 0 ;
+        if (ordenacaoAtual == OrdenacaoListaEnum.MAIS_VENDIDOS) return 1 ;
+        if (ordenacaoAtual == OrdenacaoListaEnum.MENOR_PRECO) return 2 ;
+        else return 3 ;
+    }
+
+    public TipoProdutoEnum getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoProdutoEnum tipo) {
+        this.tipo = tipo;
+    }
+
+    public CategoriaProdutoEnum getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaProdutoEnum categoria) {
+        this.categoria = categoria;
+    }
+
+    public GeneroEnum getGenero() {
+        return genero;
+    }
+
+    public void setGenero(GeneroEnum genero) {
+        this.genero = genero;
+    }
+    
+    
     
     
 }
