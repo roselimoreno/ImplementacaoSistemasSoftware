@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
 import modelo.entidade.Produto;
 import modelo.enumeracao.CategoriaProdutoEnum;
@@ -24,25 +24,25 @@ import persistencia.EMF;
  * @author Gabriel
  */
 @ManagedBean (name="controladorProduto")
-@SessionScoped
+@ViewScoped
 public class ControladorProduto implements Serializable {
       
     private EntityManager em ;
-    
-    private Produto produto ;
+   
+    private List<Produto> produtoSemFiltros ;
     private List<Produto> produtos ;
     private OrdenacaoListaEnum ordenacaoAtual ;
     
+    private GeneroEnum genero ;
     private TipoProdutoEnum tipo ;
     private CategoriaProdutoEnum categoria ;
-    private GeneroEnum genero ;
-    
     
     
     public ControladorProduto() {
         em = EMF.createEntityManager() ;
     }
     
+    // CRUD no banco
     public void adicionar(Produto p) {
         if (p.getTipo() == TipoProdutoEnum.BERMUDAS) p.setImagemURL("img/produtos/bermuda.jpg");
         if (p.getTipo() == TipoProdutoEnum.CAMISETAS) p.setImagemURL("img/produtos/camiseta.jpg");
@@ -51,7 +51,6 @@ public class ControladorProduto implements Serializable {
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
-        listarProdutos() ;
     }
     
     public void atualizar(Produto p, int id) {
@@ -69,16 +68,20 @@ public class ControladorProduto implements Serializable {
         Produto p = em.find(Produto.class, id) ;
         em.remove(p);
         em.getTransaction().commit();
-        listarProdutos() ;
     }
     
-    public void listarProdutos() {
+    
+    //queries no banco
+    public void getTodosProdutos() {
         em.getTransaction().begin();
-        produtos = em.createQuery("from Produto order by id desc").getResultList();
+        List<Produto> produtosSemFiltros = em.createQuery("from Produto order by id desc").getResultList();
+        produtos = produtosSemFiltros ;
         em.getTransaction().commit();
         ordenacaoAtual = OrdenacaoListaEnum.MAIS_NOVOS ;
     }
+        
     
+    //ordençao da lista exibida
     public void ordenarMaisNovos() {
         Collections.sort(produtos, new Comparator<Produto>() {
 
@@ -118,15 +121,9 @@ public class ControladorProduto implements Serializable {
         });
         ordenacaoAtual = OrdenacaoListaEnum.MENOR_PRECO ;
     }
+
     
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
+    //getters e setters
     public List<Produto> getProdutos() {
         return produtos;
     }
@@ -165,8 +162,22 @@ public class ControladorProduto implements Serializable {
     public void setGenero(GeneroEnum genero) {
         this.genero = genero;
     }
-    
-    
-    
-    
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public void setOrdenacaoAtual(OrdenacaoListaEnum ordenacaoAtual) {
+        this.ordenacaoAtual = ordenacaoAtual;
+    }
+
+    public List<Produto> getProdutoSemFiltros() {
+        return produtoSemFiltros;
+    }
+
+    public void setProdutoSemFiltros(List<Produto> produtoSemFiltros) {
+        this.produtoSemFiltros = produtoSemFiltros;
+    }    
+
+
 }
