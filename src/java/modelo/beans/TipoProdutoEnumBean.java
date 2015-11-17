@@ -20,14 +20,25 @@ import modelo.enumeracao.TipoProdutoEnum;
 @ApplicationScoped
 public class TipoProdutoEnumBean implements Serializable {
     
-    private TipoProdutoEnum[] tipos = {TipoProdutoEnum.CAMISETAS, TipoProdutoEnum.BERMUDAS, TipoProdutoEnum.CALCADOS} ;
 
     public TipoProdutoEnumBean() {
         
     }
 
     public TipoProdutoEnum[] getTipos() {
-        return tipos;
+        return TipoProdutoEnum.values() ;
+    }
+    
+    public TipoProdutoEnum getCamisetas() {
+        return TipoProdutoEnum.CAMISETAS ;
+    }
+    
+    public TipoProdutoEnum getBermudas() {
+        return TipoProdutoEnum.BERMUDAS ;
+    }
+    
+     public TipoProdutoEnum getCalcados() {
+        return TipoProdutoEnum.CALCADOS ;
     }
     
 }

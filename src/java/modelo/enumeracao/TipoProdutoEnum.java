@@ -5,6 +5,9 @@
  */
 package modelo.enumeracao;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 /**
  *
  * @author Gabriel
@@ -20,7 +23,7 @@ public enum TipoProdutoEnum {
     private TipoProdutoEnum(final String str) {
         this.str = str;
     }
-    
+       
     
     @Override
     public String toString() {

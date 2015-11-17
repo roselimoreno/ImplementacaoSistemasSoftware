@@ -19,14 +19,24 @@ import modelo.enumeracao.CategoriaProdutoEnum;
 @ApplicationScoped
 public class CategoriaProdutoEnumBean implements Serializable {
     
-    private CategoriaProdutoEnum[] categorias = {CategoriaProdutoEnum.CASUAL, CategoriaProdutoEnum.FUTEBOL, CategoriaProdutoEnum.CORRIDA} ;
     
     public CategoriaProdutoEnumBean() {
         
     }
 
     public CategoriaProdutoEnum[] getCategorias() {
-        return categorias;
+        return CategoriaProdutoEnum.values() ;
     }
     
+    public CategoriaProdutoEnum getCasual() {
+        return CategoriaProdutoEnum.CASUAL ;
+    }
+    
+    public CategoriaProdutoEnum getFutebol() {
+        return CategoriaProdutoEnum.FUTEBOL ;
+    }
+    
+    public CategoriaProdutoEnum getCorrida() {
+        return CategoriaProdutoEnum.CORRIDA ;
+    }
 }

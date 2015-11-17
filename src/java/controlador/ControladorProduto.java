@@ -12,6 +12,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import modelo.entidade.Produto;
 import modelo.enumeracao.CategoriaProdutoEnum;
 import modelo.enumeracao.GeneroEnum;
@@ -29,7 +30,7 @@ public class ControladorProduto implements Serializable {
       
     private EntityManager em ;
    
-    private List<Produto> produtoSemFiltros ;
+    private List<Produto> produtosSemFiltros ;
     private List<Produto> produtos ;
     private OrdenacaoListaEnum ordenacaoAtual ;
     
@@ -71,13 +72,27 @@ public class ControladorProduto implements Serializable {
     }
     
     
-    //queries no banco
-    public void getTodosProdutos() {
+    //buscas no banco
+    public void listarTodosProdutos() {
         em.getTransaction().begin();
-        List<Produto> produtosSemFiltros = em.createQuery("from Produto order by id desc").getResultList();
+        produtosSemFiltros = em.createQuery("from Produto order by id desc").getResultList();
         produtos = produtosSemFiltros ;
         em.getTransaction().commit();
         ordenacaoAtual = OrdenacaoListaEnum.MAIS_NOVOS ;
+    }
+    
+    public void buscarProdutos(GeneroEnum g, TipoProdutoEnum tp) {
+        Query query = em.createQuery("from Produto where genero=:g and tipo=:tp order by id desc") ;
+        query.setParameter("g",g) ;
+        query.setParameter("tp", tp) ;
+        
+        em.getTransaction().begin();
+        produtosSemFiltros = query.getResultList();
+        produtos = produtosSemFiltros ;
+        em.getTransaction().commit();
+        ordenacaoAtual = OrdenacaoListaEnum.MAIS_NOVOS ;
+        genero = g ;
+        tipo = tp ;
     }
         
     
@@ -172,11 +187,11 @@ public class ControladorProduto implements Serializable {
     }
 
     public List<Produto> getProdutoSemFiltros() {
-        return produtoSemFiltros;
+        return produtosSemFiltros;
     }
 
     public void setProdutoSemFiltros(List<Produto> produtoSemFiltros) {
-        this.produtoSemFiltros = produtoSemFiltros;
+        this.produtosSemFiltros = produtoSemFiltros;
     }    
 
 

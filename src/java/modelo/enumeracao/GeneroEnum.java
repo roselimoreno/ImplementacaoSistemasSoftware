@@ -5,6 +5,9 @@
  */
 package modelo.enumeracao;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 /**
  *
  * @author Gabriel

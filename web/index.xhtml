@@ -55,22 +55,23 @@
         </p:layout>
         <p:layout style="height:50px; width:100%; margin:0px; padding:0px; margin-top:6px">
             <p:layoutUnit position="center" size="100%" id="painelMenu">
+                <h:form>
                 <p:megaMenu  style="margin-top:-5px;border-style:none">
                     <p:submenu label="Masculino">
-                        <p:column>
-                            <p:submenu label="Tipo">
-                                <p:menuitem value="Camisetas" url="#" />
-                                <p:menuitem value="Bermudas" url="#" />
-                                <p:menuitem value="Calçados" url="#" />
-                            </p:submenu>
-                        </p:column>
-                        <p:column>
-                            <p:submenu label="Categoria">
-                                <p:menuitem value="Corrida" url="#" />
-                                <p:menuitem value="Futebol" url="#" />
-                                <p:menuitem value="Casual" url="#" />
-                            </p:submenu>
-                        </p:column>
+                            <p:column>
+                                <p:submenu label="Tipo">
+                                    <p:menuitem value="Camisetas" action="#{controladorProduto.buscarProdutos(generoEnum.masculino, tipoProdutoEnum.camisetas)}" ajax="false" />
+                                    <p:menuitem value="Bermudas" action="#{controladorProduto.buscarProdutos(generoEnum.masculino, tipoProdutoEnum.bermudas)}" ajax="false" />
+                                    <p:menuitem value="Calçados" action="#{controladorProduto.buscarProdutos(generoEnum.masculino, tipoProdutoEnum.calcados)}" ajax="false" />
+                                </p:submenu>          
+                            </p:column>
+                            <p:column>
+                                <p:submenu label="Categoria">
+                                    <p:menuitem value="Corrida" url="#" />
+                                    <p:menuitem value="Futebol" url="#" />
+                                    <p:menuitem value="Casual" url="#" />
+                                </p:submenu>
+                            </p:column>   
                     </p:submenu>
                     <p:submenu label="Feminino">
                         <p:column>
@@ -133,12 +134,12 @@
                             </p:submenu>
                         </p:column>
                     </p:submenu>
-                </p:megaMenu>
+                </p:megaMenu></h:form>
             </p:layoutUnit>
         </p:layout>
         
         <c:if test="#{empty controladorProduto.produtos}">
-            #{controladorProduto.getTodosProdutos()}
+            #{controladorProduto.listarTodosProdutos()}
         </c:if>
             
         

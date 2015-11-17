@@ -18,17 +18,25 @@ import modelo.enumeracao.GeneroEnum;
 @ManagedBean (name="generoEnum")
 @ApplicationScoped
 public class GeneroEnumBean implements Serializable {
-    
-    private GeneroEnum generos[] = {GeneroEnum.MASCULINO, GeneroEnum.FEMININO, GeneroEnum.UNISEX} ;
 
     public GeneroEnumBean() {
         
     }
 
     public GeneroEnum[] getGeneros() {
-        return generos;
+        return GeneroEnum.values() ;
     }
-
-   
+    
+    public GeneroEnum getMasculino() {
+        return GeneroEnum.MASCULINO ;
+    }
+    
+    public GeneroEnum getFeminino() {
+        return GeneroEnum.FEMININO ;
+    }
+    
+    public GeneroEnum getUnisex() {
+        return GeneroEnum.UNISEX ;
+    }
     
 }
