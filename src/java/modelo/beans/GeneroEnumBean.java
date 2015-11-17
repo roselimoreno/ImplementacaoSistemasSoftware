@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo.enumeracao;
+package modelo.beans;
 
+import java.io.Serializable;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import modelo.enumeracao.GeneroEnum;
 
 /**
  *
@@ -15,7 +17,7 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean (name="generoEnum")
 @ApplicationScoped
-public class GeneroEnumBean {
+public class GeneroEnumBean implements Serializable {
     
     private GeneroEnum generos[] = {GeneroEnum.MASCULINO, GeneroEnum.FEMININO, GeneroEnum.UNISEX} ;
 

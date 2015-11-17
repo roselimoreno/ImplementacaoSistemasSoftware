@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -24,7 +25,7 @@ import persistencia.EMF;
  */
 @ManagedBean (name="controladorProduto")
 @SessionScoped
-public class ControladorProduto {
+public class ControladorProduto implements Serializable {
       
     private EntityManager em ;
     

@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo.enumeracao;
+package modelo.beans;
 
+import java.io.Serializable;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import modelo.enumeracao.CategoriaProdutoEnum;
 
 /**
  *
@@ -15,7 +17,7 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean (name="categoriaProdutoEnum")
 @ApplicationScoped
-public class CategoriaProdutoEnumBean {
+public class CategoriaProdutoEnumBean implements Serializable {
     
     private CategoriaProdutoEnum[] categorias = {CategoriaProdutoEnum.CASUAL, CategoriaProdutoEnum.FUTEBOL, CategoriaProdutoEnum.CORRIDA} ;
     

@@ -5,6 +5,7 @@
  */
 package modelo.entidade;
 
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ import modelo.enumeracao.GeneroEnum;
 @ManagedBean (name="produto")
 @RequestScoped
 @Entity
-public class Produto {
+public class Produto implements Serializable {
     
     @Id
     @GeneratedValue (strategy=GenerationType.IDENTITY)
