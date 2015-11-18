@@ -35,8 +35,5 @@ public class GeneroEnumBean implements Serializable {
         return GeneroEnum.FEMININO ;
     }
     
-    public GeneroEnum getUnisex() {
-        return GeneroEnum.UNISEX ;
-    }
     
 }

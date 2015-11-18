@@ -9,13 +9,13 @@ package modelo.enumeracao;
  *
  * @author Gabriel
  */
-public enum CategoriaProdutoEnum {
+public enum DepartamentoEnum {
     
     CORRIDA("Corrida"), FUTEBOL("Futebol"), CASUAL("Casual") ;
     
     private final String str;
     
-    private CategoriaProdutoEnum(final String str) {
+    private DepartamentoEnum(final String str) {
         this.str = str;
     }
     

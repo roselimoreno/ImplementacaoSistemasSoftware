@@ -14,10 +14,10 @@ import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import modelo.entidade.Produto;
-import modelo.enumeracao.CategoriaProdutoEnum;
+import modelo.enumeracao.DepartamentoEnum;
 import modelo.enumeracao.GeneroEnum;
 import modelo.enumeracao.OrdenacaoListaEnum;
-import modelo.enumeracao.TipoProdutoEnum;
+import modelo.enumeracao.CategoriaEnum;
 import persistencia.EMF;
 
 /**
@@ -30,24 +30,60 @@ public class ControladorProduto implements Serializable {
       
     private EntityManager em ;
    
+    private boolean buscaRealizada ;
     private List<Produto> produtosSemFiltros ;
     private List<Produto> produtos ;
-    private OrdenacaoListaEnum ordenacaoAtual ;
+    private String campoBusca ;
+   
     
     private GeneroEnum genero ;
-    private TipoProdutoEnum tipo ;
-    private CategoriaProdutoEnum categoria ;
+    private CategoriaEnum categoria ;
+    private DepartamentoEnum departamento ;
+    private OrdenacaoListaEnum ordenacaoAtual ;
     
     
     public ControladorProduto() {
         em = EMF.createEntityManager() ;
     }
     
-    // CRUD no banco
+    // CRUD produtos
     public void adicionar(Produto p) {
-        if (p.getTipo() == TipoProdutoEnum.BERMUDAS) p.setImagemURL("img/produtos/bermuda.jpg");
-        if (p.getTipo() == TipoProdutoEnum.CAMISETAS) p.setImagemURL("img/produtos/camiseta.jpg");
-        if (p.getTipo() == TipoProdutoEnum.CALCADOS) p.setImagemURL("img/produtos/tenis.jpg");
+       
+        if (p.getGenero() == GeneroEnum.MASCULINO) {
+            if (p.getCategoria() == CategoriaEnum.BERMUDAS) {
+                if (p.getDepartamento() == DepartamentoEnum.CASUAL) p.setImagemURL("img/produtos/bermudaMascCas.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.FUTEBOL) p.setImagemURL("img/produtos/bermudaMascFut.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.CORRIDA) p.setImagemURL("img/produtos/bermudaMascCor.jpg");
+            }     
+            if (p.getCategoria() == CategoriaEnum.CAMISETAS) {
+                if (p.getDepartamento() == DepartamentoEnum.CASUAL) p.setImagemURL("img/produtos/camisetaMascCas.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.FUTEBOL) p.setImagemURL("img/produtos/camisetaMascFut.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.CORRIDA) p.setImagemURL("img/produtos/camisetaMascCor.jpg");
+            }
+            if (p.getCategoria() == CategoriaEnum.CALCADOS) {
+                if (p.getDepartamento() == DepartamentoEnum.CASUAL) p.setImagemURL("img/produtos/calcadoMascCas.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.FUTEBOL) p.setImagemURL("img/produtos/calcadoMascFut.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.CORRIDA) p.setImagemURL("img/produtos/calcadoMascCor.jpg");
+            }
+        }
+        
+        if (p.getGenero() == GeneroEnum.FEMININO) {
+            if (p.getCategoria() == CategoriaEnum.BERMUDAS) {
+                if (p.getDepartamento() == DepartamentoEnum.CASUAL) p.setImagemURL("img/produtos/bermudaFemCas.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.FUTEBOL) p.setImagemURL("img/produtos/bermudaFemFut.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.CORRIDA) p.setImagemURL("img/produtos/bermudaFemCor.jpg");    
+            }
+            if (p.getCategoria() == CategoriaEnum.CAMISETAS) {
+                if (p.getDepartamento() == DepartamentoEnum.CASUAL) p.setImagemURL("img/produtos/camisetaFemCas.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.FUTEBOL) p.setImagemURL("img/produtos/camisetaFemFut.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.CORRIDA) p.setImagemURL("img/produtos/camisetaFemCor.jpg");
+            }
+            if (p.getCategoria() == CategoriaEnum.CALCADOS) {
+                if (p.getDepartamento() == DepartamentoEnum.CASUAL) p.setImagemURL("img/produtos/calcadoFemCas.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.FUTEBOL) p.setImagemURL("img/produtos/calcadoFemFut.jpg");
+                if (p.getDepartamento() == DepartamentoEnum.CORRIDA) p.setImagemURL("img/produtos/calcadoFemCor.jpg");
+            }
+        }
         
         em.getTransaction().begin();
         em.persist(p);
@@ -58,7 +94,7 @@ public class ControladorProduto implements Serializable {
         em.getTransaction().begin() ;
         Produto pAux = em.find(Produto.class, id) ;
         pAux.setNome(p.getNome());
-        pAux.setTipo(p.getTipo());
+        pAux.setCategoria(p.getCategoria());
         pAux.setGenero(p.getGenero());
         em.merge(pAux) ;
         em.getTransaction().commit() ;
@@ -71,32 +107,69 @@ public class ControladorProduto implements Serializable {
         em.getTransaction().commit();
     }
     
+     public void insereProdutosTeste() {
+        for(GeneroEnum g : GeneroEnum.values()) {
+            for (CategoriaEnum c : CategoriaEnum.values()) {
+                for (DepartamentoEnum d : DepartamentoEnum.values()) {
+                    Produto p = new Produto("TESTE", null, 0, c, d, g) ;
+                    adicionar(p) ;
+                }
+            }
+        }
+    }
     
     //buscas no banco
     public void listarTodosProdutos() {
-        em.getTransaction().begin();
-        produtosSemFiltros = em.createQuery("from Produto order by id desc").getResultList();
-        produtos = produtosSemFiltros ;
-        em.getTransaction().commit();
-        ordenacaoAtual = OrdenacaoListaEnum.MAIS_NOVOS ;
+        Query q = em.createQuery("from Produto order by id desc") ;
+        executaQuery(q);
     }
     
-    public void buscarProdutos(GeneroEnum g, TipoProdutoEnum tp) {
-        Query query = em.createQuery("from Produto where genero=:g and tipo=:tp order by id desc") ;
-        query.setParameter("g",g) ;
-        query.setParameter("tp", tp) ;
-        
-        em.getTransaction().begin();
-        produtosSemFiltros = query.getResultList();
-        produtos = produtosSemFiltros ;
-        em.getTransaction().commit();
-        ordenacaoAtual = OrdenacaoListaEnum.MAIS_NOVOS ;
+    public void buscarProdutosStr(String str) {
+        Query q = em.createQuery("from Produto where nome=:str order by id desc") ;
+        q.setParameter("str",str) ;
+        executaQuery(q);
+    }
+    
+    public void buscarProdutosGenCat(GeneroEnum g, CategoriaEnum c) {
+        Query q = em.createQuery("from Produto where genero=:g and categoria=:c order by id desc") ;
+        q.setParameter("g",g) ;
+        q.setParameter("c", c) ;
         genero = g ;
-        tipo = tp ;
+        categoria = c ;
+        executaQuery(q);
+    }
+    
+    public void buscarProdutosGenDep(GeneroEnum g, DepartamentoEnum d) {
+        Query q = em.createQuery("from Produto where genero=:g and departamento=:d order by id desc") ;
+        q.setParameter("g",g) ;
+        q.setParameter("d", d) ;
+        genero = g ;
+        departamento = d ;
+        executaQuery(q);
+    }
+    
+    public void buscarProdutosGenDepCat(GeneroEnum g, DepartamentoEnum d, CategoriaEnum c) {
+        Query q = em.createQuery("from Produto where genero=:g and departamento=:d and categoria=:c order by id desc") ;
+        q.setParameter("g",g) ;
+        q.setParameter("d", d) ;
+        q.setParameter("c", c) ;
+        genero = g ;
+        departamento = d ;
+        categoria = c ;
+        executaQuery(q);
     }
         
+    public void executaQuery(Query q) {
+        em.getTransaction().begin();
+        produtosSemFiltros = q.getResultList();
+        produtos = produtosSemFiltros ;
+        em.getTransaction().commit();
+        ordenacaoAtual = OrdenacaoListaEnum.MAIS_NOVOS ;
+        buscaRealizada = true ;
+    }
     
-    //ordençao da lista exibida
+
+    //ordenaçao da lista exibida
     public void ordenarMaisNovos() {
         Collections.sort(produtos, new Comparator<Produto>() {
 
@@ -147,27 +220,20 @@ public class ControladorProduto implements Serializable {
         return ordenacaoAtual;
     }
 
-    public int getIndiceOrdenacaoAtual() {
-        if (ordenacaoAtual == OrdenacaoListaEnum.MAIS_NOVOS) return 0 ;
-        if (ordenacaoAtual == OrdenacaoListaEnum.MAIS_VENDIDOS) return 1 ;
-        if (ordenacaoAtual == OrdenacaoListaEnum.MENOR_PRECO) return 2 ;
-        else return 3 ;
-    }
-
-    public TipoProdutoEnum getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoProdutoEnum tipo) {
-        this.tipo = tipo;
-    }
-
-    public CategoriaProdutoEnum getCategoria() {
+    public CategoriaEnum getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(CategoriaProdutoEnum categoria) {
+    public void setCategoria(CategoriaEnum categoria) {
         this.categoria = categoria;
+    }
+
+    public DepartamentoEnum getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(DepartamentoEnum departamento) {
+        this.departamento = departamento;
     }
 
     public GeneroEnum getGenero() {
@@ -194,5 +260,19 @@ public class ControladorProduto implements Serializable {
         this.produtosSemFiltros = produtoSemFiltros;
     }    
 
+    public boolean isBuscaRealizada() {
+        return buscaRealizada;
+    }
 
+    public String getCampoBusca() {
+        return campoBusca;
+    }
+
+    public void setCampoBusca(String campoBusca) {
+        this.campoBusca = campoBusca;
+    }
+
+    
+    
+    
 }

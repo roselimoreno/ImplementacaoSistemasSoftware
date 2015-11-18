@@ -16,7 +16,7 @@ import javax.faces.bean.ViewScoped;
 
 public enum GeneroEnum {
     
-    MASCULINO("Masculino"), FEMININO("Feminino"), UNISEX("Unisex") ;
+    MASCULINO("Masculino"), FEMININO("Feminino") ;
     
     private final String str;
     

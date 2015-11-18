@@ -14,13 +14,13 @@ import javax.faces.bean.ViewScoped;
  */
 
 
-public enum TipoProdutoEnum {
+public enum CategoriaEnum {
     
     CAMISETAS("Camisetas"), BERMUDAS("Bermudas"), CALCADOS("Calçados") ;
     
     private final String str;
     
-    private TipoProdutoEnum(final String str) {
+    private CategoriaEnum(final String str) {
         this.str = str;
     }
        

@@ -12,8 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import modelo.enumeracao.CategoriaProdutoEnum;
-import modelo.enumeracao.TipoProdutoEnum;
+import modelo.enumeracao.DepartamentoEnum;
+import modelo.enumeracao.CategoriaEnum;
 import modelo.enumeracao.GeneroEnum;
 
 /**
@@ -32,20 +32,20 @@ public class Produto implements Serializable {
     private String nome ;
     private String imagemURL ;
     private double preco ;
-    private TipoProdutoEnum tipo ;
-    private CategoriaProdutoEnum categoria ;
+    private CategoriaEnum categoria ;
+    private DepartamentoEnum departamento ;
     private GeneroEnum genero ;
 
     public Produto() {
     
     }
     
-    public Produto(String nome, String imagemURL, double preco, TipoProdutoEnum tipo, CategoriaProdutoEnum categoria, GeneroEnum genero) {
+    public Produto(String nome, String imagemURL, double preco, CategoriaEnum categoria, DepartamentoEnum departamento, GeneroEnum genero) {
         this.nome = nome ;
         this.imagemURL = imagemURL ;
         this.preco = preco ;
-        this.tipo = tipo ;
         this.categoria = categoria ;
+        this.departamento = departamento ;
         this.genero = genero ;
     }
 
@@ -83,12 +83,12 @@ public class Produto implements Serializable {
     
     
 
-    public TipoProdutoEnum getTipo() {
-        return tipo;
+    public CategoriaEnum getCategoria() {
+        return categoria;
     }
 
-    public void setTipo(TipoProdutoEnum tipo) {
-        this.tipo = tipo;
+    public void setCategoria(CategoriaEnum categoria) {
+        this.categoria = categoria;
     }
 
     public GeneroEnum getGenero() {
@@ -99,12 +99,12 @@ public class Produto implements Serializable {
         this.genero = genero;
     }
 
-    public CategoriaProdutoEnum getCategoria() {
-        return categoria;
+    public DepartamentoEnum getDepartamento() {
+        return departamento;
     }
 
-    public void setCategoria(CategoriaProdutoEnum categoria) {
-        this.categoria = categoria;
+    public void setDepartamento(DepartamentoEnum departamento) {
+        this.departamento = departamento;
     }
     
     

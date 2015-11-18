@@ -13,7 +13,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import modelo.entidade.Produto;
-import modelo.enumeracao.TipoProdutoEnum;
+import modelo.enumeracao.CategoriaEnum;
 import modelo.enumeracao.GeneroEnum;
 
 /**

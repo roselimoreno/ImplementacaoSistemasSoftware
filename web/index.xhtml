@@ -28,8 +28,8 @@
             <p:layoutUnit position="center" size="34%">
                 <div style="margin:0px; margin-left:20%; margin-top:2%">
                     <h:form>
-                        <p:inputText style="width:70%"></p:inputText>
-                        <p:commandButton icon="ui-icon-search"></p:commandButton>
+                        <p:inputText style="width:70%" value="#{controladorProduto.campoBusca}"></p:inputText>
+                        <p:commandButton icon="ui-icon-search" action="#{controladorProduto.buscarProdutosStr(controladorProduto.campoBusca)}" ajax="false"></p:commandButton>
                     </h:form>
                 </div>   
             </p:layoutUnit>
@@ -38,8 +38,8 @@
                     <p:layoutUnit position="west" size="50%" style="border-style:none">
                         <p:menubar>
                             <p:submenu label="Entrar">
-                                <p:menuitem value="Logar" url="#" />
-                                <p:menuitem value="Cadastrar" url="#" />
+                                <p:menuitem value="Logar" url="#"/>
+                                <p:menuitem value="Cadastrar" url="#"/>
                             </p:submenu>
                         </p:menubar>
                     </p:layoutUnit>
@@ -58,92 +58,74 @@
                 <h:form>
                 <p:megaMenu  style="margin-top:-5px;border-style:none">
                     <p:submenu label="Masculino">
-                            <p:column>
-                                <p:submenu label="Tipo">
-                                    <p:menuitem value="Camisetas" action="#{controladorProduto.buscarProdutos(generoEnum.masculino, tipoProdutoEnum.camisetas)}" ajax="false" />
-                                    <p:menuitem value="Bermudas" action="#{controladorProduto.buscarProdutos(generoEnum.masculino, tipoProdutoEnum.bermudas)}" ajax="false" />
-                                    <p:menuitem value="Calçados" action="#{controladorProduto.buscarProdutos(generoEnum.masculino, tipoProdutoEnum.calcados)}" ajax="false" />
-                                </p:submenu>          
-                            </p:column>
-                            <p:column>
-                                <p:submenu label="Categoria">
-                                    <p:menuitem value="Corrida" url="#" />
-                                    <p:menuitem value="Futebol" url="#" />
-                                    <p:menuitem value="Casual" url="#" />
-                                </p:submenu>
-                            </p:column>   
+                        <p:column>
+                            <p:submenu label="Categorias">
+                                <p:menuitem value="Camisetas" action="#{controladorProduto.buscarProdutosGenCat(generoEnum.masculino, categoriaEnum.camisetas)}" ajax="false" />
+                                <p:menuitem value="Bermudas" action="#{controladorProduto.buscarProdutosGenCat(generoEnum.masculino, categoriaEnum.bermudas)}" ajax="false" />
+                                <p:menuitem value="Calçados" action="#{controladorProduto.buscarProdutosGenCat(generoEnum.masculino, categoriaEnum.calcados)}" ajax="false" />
+                            </p:submenu>   
+                            <p:submenu label="Departamentos">
+                                <p:menuitem value="Corrida" action="#{controladorProduto.buscarProdutosGenDep(generoEnum.masculino, departamentoEnum.corrida)}" ajax="false" />
+                                <p:menuitem value="Futebol" action="#{controladorProduto.buscarProdutosGenDep(generoEnum.masculino, departamentoEnum.futebol)}" ajax="false" />
+                                <p:menuitem value="Casual" action="#{controladorProduto.buscarProdutosGenDep(generoEnum.masculino, departamentoEnum.casual)}" ajax="false" />
+                            </p:submenu>
+                        </p:column>
+                        <p:column>
+                            <p:submenu label="Camisetas">
+                                <p:menuitem value="Corrida" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.masculino, departamentoEnum.corrida, categoriaEnum.camisetas)}" ajax="false" />
+                                <p:menuitem value="Futebol" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.masculino, departamentoEnum.futebol, categoriaEnum.camisetas)}" ajax="false" />
+                                <p:menuitem value="Casual" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.masculino, departamentoEnum.casual, categoriaEnum.camisetas)}" ajax="false" />
+                            </p:submenu>
+                            <p:submenu label="Bermudas">
+                                <p:menuitem value="Corrida" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.masculino, departamentoEnum.corrida, categoriaEnum.bermudas)}" ajax="false" />
+                                <p:menuitem value="Futebol" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.masculino, departamentoEnum.futebol, categoriaEnum.bermudas)}" ajax="false" />
+                                <p:menuitem value="Casual" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.masculino, departamentoEnum.casual, categoriaEnum.bermudas)}" ajax="false" />
+                            </p:submenu>
+                            <p:submenu label="Calçados">
+                                <p:menuitem value="Corrida" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.masculino, departamentoEnum.corrida, categoriaEnum.calcados)}" ajax="false" />
+                                <p:menuitem value="Futebol" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.masculino, departamentoEnum.futebol, categoriaEnum.calcados)}" ajax="false" />
+                                <p:menuitem value="Casual" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.masculino, departamentoEnum.casual, categoriaEnum.calcados)}" ajax="false" />
+                            </p:submenu>
+                        </p:column>   
                     </p:submenu>
                     <p:submenu label="Feminino">
                         <p:column>
-                            <p:submenu label="Tipo">
-                                <p:menuitem value="Camisetas" url="#" />
-                                <p:menuitem value="Bermudas" url="#" />
-                                <p:menuitem value="Calçados" url="#" />
+                            <p:submenu label="Categorias">
+                                <p:menuitem value="Camisetas" action="#{controladorProduto.buscarProdutosGenCat(generoEnum.feminino, categoriaEnum.camisetas)}" ajax="false" />
+                                <p:menuitem value="Bermudas" action="#{controladorProduto.buscarProdutosGenCat(generoEnum.feminino, categoriaEnum.bermudas)}" ajax="false" />
+                                <p:menuitem value="Calçados" action="#{controladorProduto.buscarProdutosGenCat(generoEnum.feminino, categoriaEnum.calcados)}" ajax="false" />
+                            </p:submenu>
+                            <p:submenu label="Departamentos">
+                                <p:menuitem value="Corrida" action="#{controladorProduto.buscarProdutosGenDep(generoEnum.feminino, departamentoEnum.corrida)}" ajax="false" />
+                                <p:menuitem value="Futebol" action="#{controladorProduto.buscarProdutosGenDep(generoEnum.feminino, departamentoEnum.futebol)}" ajax="false" />
+                                <p:menuitem value="Casual" action="#{controladorProduto.buscarProdutosGenDep(generoEnum.feminino, departamentoEnum.casual)}" ajax="false" />
                             </p:submenu>
                         </p:column>
                         <p:column>
-                            <p:submenu label="Categoria">
-                                <p:menuitem value="Corrida" url="#" />
-                                <p:menuitem value="Futebol" url="#" />
-                                <p:menuitem value="Casual" url="#" />
+                            <p:submenu label="Camisetas">
+                                <p:menuitem value="Corrida" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.feminino, departamentoEnum.corrida, categoriaEnum.camisetas)}" ajax="false" />
+                                <p:menuitem value="Futebol" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.feminino, departamentoEnum.futebol, categoriaEnum.camisetas)}" ajax="false" />
+                                <p:menuitem value="Casual" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.feminino, departamentoEnum.casual, categoriaEnum.camisetas)}" ajax="false" />
+                            </p:submenu>
+                            <p:submenu label="Bermudas">
+                                <p:menuitem value="Corrida" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.feminino, departamentoEnum.corrida, categoriaEnum.bermudas)}" ajax="false" />
+                                <p:menuitem value="Futebol" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.feminino, departamentoEnum.futebol, categoriaEnum.bermudas)}" ajax="false" />
+                                <p:menuitem value="Casual" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.feminino, departamentoEnum.casual, categoriaEnum.bermudas)}" ajax="false" />
+                            </p:submenu>
+                            <p:submenu label="Calçados">
+                                <p:menuitem value="Corrida" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.feminino, departamentoEnum.corrida, categoriaEnum.calcados)}" ajax="false" />
+                                <p:menuitem value="Futebol" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.feminino, departamentoEnum.futebol, categoriaEnum.calcados)}" ajax="false" />
+                                <p:menuitem value="Casual" action="#{controladorProduto.buscarProdutosGenDepCat(generoEnum.feminino, departamentoEnum.casual, categoriaEnum.calcados)}" ajax="false" />
                             </p:submenu>
                         </p:column>
-                    </p:submenu>
-                    <p:submenu label="Camisetas">
-                        <p:column>
-                            <p:submenu label="Categoria">
-                                <p:menuitem value="Corrida" url="#" />
-                                <p:menuitem value="Futebol" url="#" />
-                                <p:menuitem value="Casual" url="#" />
-                            </p:submenu>
-                        </p:column>
-                        <p:column>
-                            <p:submenu label="Gênero">
-                                <p:menuitem value="Masculino" url="#" />
-                                <p:menuitem value="Feminino" url="#" />
-                            </p:submenu>
-                        </p:column>
-                    </p:submenu>
-                    <p:submenu label="Bermudas">
-                        <p:column>
-                            <p:submenu label="Categoria">
-                                <p:menuitem value="Corrida" url="#" />
-                                <p:menuitem value="Futebol" url="#" />
-                                <p:menuitem value="Casual" url="#" />
-                            </p:submenu>
-                        </p:column>
-                        <p:column>
-                            <p:submenu label="Gênero">
-                                <p:menuitem value="Masculino" url="#" />
-                                <p:menuitem value="Feminino" url="#" />
-                            </p:submenu>
-                        </p:column>
-                    </p:submenu>
-                    <p:submenu label="Calçados">
-                        <p:column>
-                            <p:submenu label="Categoria">
-                                <p:menuitem value="Corrida" url="#" />
-                                <p:menuitem value="Futebol" url="#" />
-                                <p:menuitem value="Casual" url="#" />        
-                            </p:submenu>
-                        </p:column>
-                        <p:column>
-                            <p:submenu label="Gênero">
-                                <p:menuitem value="Masculino" url="#" />
-                                <p:menuitem value="Feminino" url="#" />
-                            </p:submenu>
-                        </p:column>
-                    </p:submenu>
-                </p:megaMenu></h:form>
+                    </p:submenu>  
+                </p:megaMenu>
+                </h:form>
             </p:layoutUnit>
         </p:layout>
-        
-        <c:if test="#{empty controladorProduto.produtos}">
-            #{controladorProduto.listarTodosProdutos()}
-        </c:if>
             
-        
-        <h:panelGroup rendered="#{empty controladorProduto.produtos}">
+        <!-- sequencia de imagens que sao mostradas quando o site é aberto pela primeira vez -->
+        <h:panelGroup rendered="#{not controladorProduto.buscaRealizada}">
             <div style="margin-top:6px; margin-bottom:6px;" align="center">
                 <p:imageSwitch effect="fade" style="z-index:-1">
                     <p:graphicImage url="img/propagandas/1.jpg" style="max-width:100%"/>
@@ -154,15 +136,16 @@
             </div>
         </h:panelGroup>
         
+        <!--componentes que sao mostrados caso alguma busca com resultados tenha sido realizada (lista de produtos nao está vazia) -->
         <p:layout style="height:34px; width:100%; margin:0px; padding:0px; margin-top:6px; margin-bottom:6px" rendered="#{not empty controladorProduto.produtos}">
             <p:layoutUnit position="center" size="100%">
                 <h:form>
                     <div style="font-size:12px; text-align:right; position:relative; top:4px; margin-right: 4px">
                         Ordenar por: 
-                        <h:commandLink value="Mais Novos" action="#{controladorProduto.ordenarMaisNovos}" style="#{(controladorProduto.indiceOrdenacaoAtual==0) ? 'font-weight:bold' : ''}"/> |
-                        <h:commandLink value="Mais Vendidos" action="#{controladorProduto.ordenarMaisVendidos}" style="#{(controladorProduto.indiceOrdenacaoAtual==1) ? 'font-weight:bold' : ''}" /> |
-                        <h:commandLink value="Menor Preço" action="#{controladorProduto.ordenarMenorPreco}" style="#{(controladorProduto.indiceOrdenacaoAtual==2) ? 'font-weight:bold' : ''}" /> |
-                        <h:commandLink value="Maior Preço" action="#{controladorProduto.ordenarMaiorPreco}" style="#{(controladorProduto.indiceOrdenacaoAtual==3) ? 'font-weight:bold' : ''}" />
+                        <h:commandLink value="Mais Novos" action="#{controladorProduto.ordenarMaisNovos}" style="#{(controladorProduto.ordenacaoAtual == ordenacaoLista.maisNovos) ? 'font-weight:bold' : ''}"/> |
+                        <h:commandLink value="Mais Vendidos" action="#{controladorProduto.ordenarMaisVendidos}" style="#{(controladorProduto.ordenacaoAtual == ordenacaoLista.maisVendidos) ? 'font-weight:bold' : ''}" /> |
+                        <h:commandLink value="Menor Preço" action="#{controladorProduto.ordenarMenorPreco}" style="#{(controladorProduto.ordenacaoAtual == ordenacaoLista.menorPreco) ? 'font-weight:bold' : ''}" /> |
+                        <h:commandLink value="Maior Preço" action="#{controladorProduto.ordenarMaiorPreco}" style="#{(controladorProduto.ordenacaoAtual == ordenacaoLista.maiorPreco) ? 'font-weight:bold' : ''}" />
                     </div>    
                 </h:form>
             </p:layoutUnit>
@@ -172,14 +155,24 @@
             <p:panel header="#{produtos.nome}" style="text-align:center;">
                 <h:panelGrid columns="1" style="width:100%">
                     <p:graphicImage url="#{produtos.imagemURL}" />
-                    <h:outputText value="#{produtos.tipo.toString()}" />
                     <h:outputText value="#{produtos.categoria.toString()}" />
+                    <h:outputText value="#{produtos.departamento.toString()}" />
                     <h:outputText value="#{produtos.genero.toString()}" />                                
                     <h:outputText value="R$ #{produtos.preco}" />                    
                 </h:panelGrid>    
             </p:panel>    
         </p:dataGrid>
         
+        <!-- mensagem mostrada após uma busca sem resultados -->
+        <p:layout style="height:120px; width:100%; margin-top:6px" rendered="#{empty controladorProduto.produtos and controladorProduto.buscaRealizada}">
+            <p:layoutUnit position="center" size="100%">
+                <div style="font-weight:bold">
+                    Busca sem resultados, tente novamente
+                </div>
+            </p:layoutUnit>
+        </p:layout>
+        
+        <!-- footer -->
         <p:layout style="height:50px; width:100%; margin:0px; padding:0px; margin-top:6px">
             <p:layoutUnit position="center" size="100%">
                 <div align="center" style="position:relative; top:6px">
@@ -188,38 +181,42 @@
             </p:layoutUnit>
         </p:layout>
         
+        
+        
+        
         <br /> <br /> <br/> <br/> <br/>
          <h:form>
             Nome <br />
             <h:inputText value="#{produto.nome}" /> <br /><br />
             Preco <br />
             <h:inputText value="#{produto.preco}" /> <br /><br />
-            Tipo Produto <br />
-            <h:selectOneMenu value="#{produto.tipo}">
-                <f:selectItem itemLabel="#{tipoProdutoEnum.tipos[0].toString()}" itemValue="#{tipoProdutoEnum.tipos[0]}" />
-                <f:selectItem itemLabel="#{tipoProdutoEnum.tipos[1].toString()}" itemValue="#{tipoProdutoEnum.tipos[1]}" />
-                <f:selectItem itemLabel="#{tipoProdutoEnum.tipos[2].toString()}" itemValue="#{tipoProdutoEnum.tipos[2]}" />
-             </h:selectOneMenu> <br /> <br />
             Categoria <br />
             <h:selectOneMenu value="#{produto.categoria}">
-                <f:selectItem itemLabel="#{categoriaProdutoEnum.categorias[0].toString()}" itemValue="#{categoriaProdutoEnum.categorias[0]}" />
-                <f:selectItem itemLabel="#{categoriaProdutoEnum.categorias[1].toString()}" itemValue="#{categoriaProdutoEnum.categorias[1]}" />
-                <f:selectItem itemLabel="#{categoriaProdutoEnum.categorias[2].toString()}" itemValue="#{categoriaProdutoEnum.categorias[2]}" />
+                <f:selectItem itemLabel="#{categoriaEnum.categorias[0].toString()}" itemValue="#{categoriaEnum.categorias[0]}" />
+                <f:selectItem itemLabel="#{categoriaEnum.categorias[1].toString()}" itemValue="#{categoriaEnum.categorias[1]}" />
+                <f:selectItem itemLabel="#{categoriaEnum.categorias[2].toString()}" itemValue="#{categoriaEnum.categorias[2]}" />
+             </h:selectOneMenu> <br /> <br />
+            Departamento <br />
+            <h:selectOneMenu value="#{produto.departamento}">
+                <f:selectItem itemLabel="#{departamentoEnum.departamentos[0].toString()}" itemValue="#{departamentoEnum.departamentos[0]}" />
+                <f:selectItem itemLabel="#{departamentoEnum.departamentos[1].toString()}" itemValue="#{departamentoEnum.departamentos[1]}" />
+                <f:selectItem itemLabel="#{departamentoEnum.departamentos[2].toString()}" itemValue="#{departamentoEnum.departamentos[2]}" />
              </h:selectOneMenu> <br /> <br />
             Genero <br />
             <h:selectOneMenu value="#{produto.genero}">
                 <f:selectItem itemLabel="#{generoEnum.generos[0].toString()}" itemValue="#{generoEnum.generos[0]}" />
                 <f:selectItem itemLabel="#{generoEnum.generos[1].toString()}" itemValue="#{generoEnum.generos[1]}" />
-                 <f:selectItem itemLabel="#{generoEnum.generos[2].toString()}" itemValue="#{generoEnum.generos[2]}" />
             </h:selectOneMenu> <br /> <br />
             <h:commandButton value="Adicionar" action="#{controladorProduto.adicionar(produto)}" />
             <h:commandButton value="Atualizar" action="#{controladorProduto.atualizar(produto, controladorProduto.produtos[0].id)}" />
             <h:commandButton value="Remover" action="#{controladorProduto.remover(controladorProduto.produtos[0].id)}" />
+            <h:commandButton value="Listar Tudo" action="#{controladorProduto.listarTodosProdutos()}" />
+            <h:commandButton value="Insere Teste" action="#{controladorProduto.insereProdutosTeste()}" />
         </h:form>
         <br /> <br />
         
         <p:dataList value="#{controladorProduto.produtos}" var="produtos">
-            #{produtos.nome}, #{produtos.tipo.toString()}, #{produtos.genero.toString()}, #{produtos.imagemURL}
+            #{produtos.nome}, #{produtos.categoria.toString()}, #{produtos.genero.toString()}, #{produtos.imagemURL}
         </p:dataList>
     </h:body>
 </html>
