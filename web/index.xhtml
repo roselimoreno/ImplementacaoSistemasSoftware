@@ -10,15 +10,13 @@
 
     <h:head>
         <title>Active Web Center</title>
-       
         <style>
             #painelLoginCarrinho {z-index:2 !important; }
             #painelLoginCarrinho div {overflow:visible;}
             
             #painelMenu {z-index:1 !important; }
             #painelMenu div {overflow:visible;}
-        </style>
-    
+        </style> 
     </h:head>
     <h:body>
         <p:layout style="height:76px; width:100%">
@@ -124,7 +122,7 @@
             </p:layoutUnit>
         </p:layout>
             
-        <!-- sequencia de imagens que sao mostradas quando o site é aberto pela primeira vez -->
+        <!-- componente que exibe sequencia de imagens no inicio da visita ao site -->
         <h:panelGroup rendered="#{not controladorProduto.buscaRealizada}">
             <div style="margin-top:6px; margin-bottom:6px;" align="center">
                 <p:imageSwitch effect="fade" style="z-index:-1">
@@ -180,11 +178,9 @@
                 </div>
             </p:layoutUnit>
         </p:layout>
-        
-        
-        
-        
-        <br /> <br /> <br/> <br/> <br/>
+      
+        <!-- interface simples de cadastro de produtos para testes das funcionalidades. isso não faz parte dessa página, cadastro de produtos estará em outra area do site futuramente -->
+        <br /> <br /> <br/> <br/> <br/> <br/> <br/> <br/>
          <h:form>
             Nome <br />
             <h:inputText value="#{produto.nome}" /> <br /><br />

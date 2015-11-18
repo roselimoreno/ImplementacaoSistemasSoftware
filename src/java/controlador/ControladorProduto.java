@@ -49,6 +49,7 @@ public class ControladorProduto implements Serializable {
     // CRUD produtos
     public void adicionar(Produto p) {
        
+        //imagens temporarias apenas para a fase de testes do projeto
         if (p.getGenero() == GeneroEnum.MASCULINO) {
             if (p.getCategoria() == CategoriaEnum.BERMUDAS) {
                 if (p.getDepartamento() == DepartamentoEnum.CASUAL) p.setImagemURL("img/produtos/bermudaMascCas.jpg");
@@ -118,16 +119,16 @@ public class ControladorProduto implements Serializable {
         }
     }
     
-    //buscas no banco
+    //queries no banco
     public void listarTodosProdutos() {
         Query q = em.createQuery("from Produto order by id desc") ;
-        executaQuery(q);
+        executarQuery(q);
     }
     
     public void buscarProdutosStr(String str) {
         Query q = em.createQuery("from Produto where nome=:str order by id desc") ;
         q.setParameter("str",str) ;
-        executaQuery(q);
+        executarQuery(q);
     }
     
     public void buscarProdutosGenCat(GeneroEnum g, CategoriaEnum c) {
@@ -136,7 +137,7 @@ public class ControladorProduto implements Serializable {
         q.setParameter("c", c) ;
         genero = g ;
         categoria = c ;
-        executaQuery(q);
+        executarQuery(q);
     }
     
     public void buscarProdutosGenDep(GeneroEnum g, DepartamentoEnum d) {
@@ -145,7 +146,7 @@ public class ControladorProduto implements Serializable {
         q.setParameter("d", d) ;
         genero = g ;
         departamento = d ;
-        executaQuery(q);
+        executarQuery(q);
     }
     
     public void buscarProdutosGenDepCat(GeneroEnum g, DepartamentoEnum d, CategoriaEnum c) {
@@ -156,10 +157,10 @@ public class ControladorProduto implements Serializable {
         genero = g ;
         departamento = d ;
         categoria = c ;
-        executaQuery(q);
+        executarQuery(q);
     }
         
-    public void executaQuery(Query q) {
+    public void executarQuery(Query q) {
         em.getTransaction().begin();
         produtosSemFiltros = q.getResultList();
         produtos = produtosSemFiltros ;
